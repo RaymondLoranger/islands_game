@@ -1,6 +1,6 @@
 # Islands Game
 
-Models a `game` for the _Game of Islands_.
+Models a `game` in the _Game of Islands_.
 
 ## Installation
 

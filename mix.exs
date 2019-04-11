@@ -4,7 +4,7 @@ defmodule Islands.Game.MixProject do
   def project do
     [
       app: :islands_game,
-      version: "0.1.0",
+      version: "0.1.1",
       elixir: "~> 1.7",
       start_permanent: Mix.env() == :prod,
       name: "Islands Game",
@@ -21,7 +21,7 @@ defmodule Islands.Game.MixProject do
 
   defp description do
     """
-    Models a game for the Game of Islands.
+    Models a game in the Game of Islands.
     """
   end
 

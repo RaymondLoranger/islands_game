@@ -9,7 +9,7 @@ defmodule Islands.Game do
   @book_ref Application.get_env(@app, :book_ref)
 
   @moduledoc """
-  Models a `game` for the _Game of Islands_.
+  Models a `game` in the _Game of Islands_.
   \n##### #{@book_ref}
   """
 
@@ -25,6 +25,10 @@ defmodule Islands.Game do
     Response,
     State
   }
+
+  @genders [:f, :m]
+  @hit_or_miss [:hit, :miss]
+  @player_ids [:player1, :player2]
 
   @derive [Poison.Encoder]
   @derive Jason.Encoder
@@ -44,10 +48,6 @@ defmodule Islands.Game do
           response: Response.t(),
           state: State.t()
         }
-
-  @genders [:f, :m]
-  @hit_or_miss [:hit, :miss]
-  @player_ids [:player1, :player2]
 
   # Access behaviour
   defdelegate fetch(game, key), to: Map
@@ -79,20 +79,13 @@ defmodule Islands.Game do
     update_in(game[player_id].guesses, &Guesses.add(&1, hit_or_miss, guess))
   end
 
-  @spec update_player_name(t, PlayerID.t(), String.t()) :: t
-  def update_player_name(%Game{} = game, player_id, name)
-      when player_id in @player_ids and is_binary(name),
-      do: put_in(game[player_id].name, name)
-
-  @spec update_player_gender(t, PlayerID.t(), Player.gender()) :: t
-  def update_player_gender(%Game{} = game, player_id, gender)
-      when player_id in @player_ids and gender in @genders,
-      do: put_in(game[player_id].gender, gender)
-
-  @spec update_player_pid(t, PlayerID.t(), pid) :: t
-  def update_player_pid(%Game{} = game, player_id, pid)
-      when player_id in @player_ids and is_pid(pid),
-      do: put_in(game[player_id].pid, pid)
+  @spec update_player(t, PlayerID.t(), String.t(), Player.gender(), pid) :: t
+  def update_player(%Game{} = game, player_id, name, gender, pid)
+      when player_id in @player_ids and is_binary(name) and is_pid(pid) and
+             gender in @genders do
+    player = %Player{game[player_id] | name: name, gender: gender, pid: pid}
+    put_in(game[player_id], player)
+  end
 
   @spec notify_player(t, PlayerID.t()) :: t
   def notify_player(%Game{} = game, player_id) when player_id in @player_ids do
