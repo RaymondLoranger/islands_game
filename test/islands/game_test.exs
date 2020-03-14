@@ -10,20 +10,24 @@ defmodule Islands.GameTest do
     eden = Game.new("Eden", "Adam", :m, this)
 
     poison =
-      ~s<{\"state\":{\"player2_state\":\"islands_not_set\",\"player1_state\":\"islands_not_set\",\"game_state\":\"initialized\"},\"response\":[],\"request\":[],\"player2\":{\"name\":\"?\",\"gender\":\"f\"},\"player1\":{\"name\":\"Adam\",\"gender\":\"m\"},\"name\":\"Eden\"}>
+      ~s<{"state":{"player2_state":"islands_not_set","player1_state":"islands_not_set","game_state":"initialized"},"response":[],"request":[],"player2":{"name":"?","guesses":{"misses":[],"hits":[]},"gender":"f","board":{"misses":[],"islands":{}}},"player1":{"name":"Adam","guesses":{"misses":[],"hits":[]},"gender":"m","board":{"misses":[],"islands":{}}},"name":"Eden"}>
 
     jason =
-      ~s<{\"name\":\"Eden\",\"player1\":{\"name\":\"Adam\",\"gender\":\"m\"},\"player2\":{\"name\":\"?\",\"gender\":\"f\"},\"request\":[],\"response\":[],\"state\":{\"game_state\":\"initialized\",\"player1_state\":\"islands_not_set\",\"player2_state\":\"islands_not_set\"}}>
+      ~s<{"name":"Eden","player1":{"name":"Adam","gender":"m","board":{"islands":{},"misses":[]},"guesses":{"hits":[],"misses":[]}},"player2":{"name":"?","gender":"f","board":{"islands":{},"misses":[]},"guesses":{"hits":[],"misses":[]}},"request":[],"response":[],"state":{"game_state":"initialized","player1_state":"islands_not_set","player2_state":"islands_not_set"}}>
 
     decoded = %{
       "name" => "Eden",
       "player1" => %{
         "gender" => "m",
-        "name" => "Adam"
+        "name" => "Adam",
+        "board" => %{"islands" => %{}, "misses" => []},
+        "guesses" => %{"hits" => [], "misses" => []}
       },
       "player2" => %{
         "gender" => "f",
-        "name" => "?"
+        "name" => "?",
+        "board" => %{"islands" => %{}, "misses" => []},
+        "guesses" => %{"hits" => [], "misses" => []}
       },
       "request" => [],
       "response" => [],
