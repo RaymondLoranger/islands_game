@@ -89,7 +89,7 @@ defmodule Islands.Game do
 
   @spec notify_player(t, PlayerID.t()) :: t
   def notify_player(%Game{} = game, player_id) when player_id in @player_ids do
-    send(game[player_id].pid, game.state.game_state)
+    send(game[player_id].pid, notice(game))
     game
   end
 
@@ -124,4 +124,9 @@ defmodule Islands.Game do
       data |> Tuple.to_list() |> Jason.Encode.list(opts)
     end
   end
+
+  ## Private functions
+
+  @spec notice(t) :: {State.game_state(), Request.t(), Response.t()}
+  defp notice(game), do: {game.state.game_state, game.request, game.response}
 end
