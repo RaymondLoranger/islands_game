@@ -2,16 +2,12 @@
 # │ Inspired by the book "Functional Web Development" by Lance Halvorsen. │
 # └───────────────────────────────────────────────────────────────────────┘
 defmodule Islands.Game do
-  @behaviour Access
-
-  use PersistConfig
-
-  @book_ref Application.get_env(@app, :book_ref)
-
   @moduledoc """
   Models a `game` in the _Game of Islands_.
-  \n##### #{@book_ref}
+  \n##### #{Islands.Config.get(:book_ref)}
   """
+
+  @behaviour Access
 
   alias __MODULE__
 
