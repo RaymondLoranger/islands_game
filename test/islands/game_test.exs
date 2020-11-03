@@ -38,7 +38,7 @@ defmodule Islands.GameTest do
       }
     }
 
-    {:ok, json: %{poison: poison, jason: jason, decoded: decoded}, game: eden}
+    %{json: %{poison: poison, jason: jason, decoded: decoded}, game: eden}
   end
 
   describe "A game struct" do
