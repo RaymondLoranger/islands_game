@@ -59,7 +59,7 @@ defmodule Islands.GameTest do
 
       assert %Game{
                name: "Aveline",
-               player1: %Player{name: "Jordan", gender: :m, pid: me}
+               player1: %Player{name: "Jordan", gender: :m, pid: ^me}
              } = Game.new("Aveline", "Jordan", :m, me)
     end
 
