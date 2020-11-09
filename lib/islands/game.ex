@@ -1,10 +1,11 @@
-# ┌───────────────────────────────────────────────────────────────────────┐
-# │ Inspired by the book "Functional Web Development" by Lance Halvorsen. │
-# └───────────────────────────────────────────────────────────────────────┘
+# ┌────────────────────────────────────────────────────────────────────┐
+# │ Based on the book "Functional Web Development" by Lance Halvorsen. │
+# └────────────────────────────────────────────────────────────────────┘
 defmodule Islands.Game do
   @moduledoc """
   Models a `game` in the _Game of Islands_.
-  \n##### #{Islands.Config.get(:book_ref)}
+
+  ##### Based on the book [Functional Web Development](https://pragprog.com/book/lhelph/functional-web-development-with-elixir-otp-and-phoenix) by Lance Halvorsen.
   """
 
   @behaviour Access
