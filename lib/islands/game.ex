@@ -48,7 +48,6 @@ defmodule Islands.Game do
 
   # Access behaviour
   defdelegate fetch(game, key), to: Map
-  defdelegate get(game, key, default), to: Map
   defdelegate get_and_update(game, key, fun), to: Map
   defdelegate pop(game, key), to: Map
 
@@ -112,13 +111,13 @@ defmodule Islands.Game do
 
   defimpl Poison.Encoder, for: Tuple do
     def encode(data, options) when is_tuple(data) do
-      data |> Tuple.to_list() |> Poison.Encoder.List.encode(options)
+      Tuple.to_list(data) |> Poison.Encoder.List.encode(options)
     end
   end
 
   defimpl Jason.Encoder, for: Tuple do
     def encode(data, opts) when is_tuple(data) do
-      data |> Tuple.to_list() |> Jason.Encode.list(opts)
+      Tuple.to_list(data) |> Jason.Encode.list(opts)
     end
   end
 end
