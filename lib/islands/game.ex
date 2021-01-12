@@ -37,8 +37,9 @@ defmodule Islands.Game do
             response: {},
             state: State.new()
 
+  @type name :: String.t()
   @type t :: %Game{
-          name: String.t(),
+          name: name,
           player1: Player.t(),
           player2: Player.t(),
           request: Request.t(),
@@ -51,7 +52,7 @@ defmodule Islands.Game do
   defdelegate get_and_update(game, key, fun), to: Map
   defdelegate pop(game, key), to: Map
 
-  @spec new(String.t(), String.t(), Player.gender(), pid) :: t | {:error, atom}
+  @spec new(name, String.t(), Player.gender(), pid) :: t | {:error, atom}
   def new(name, player1_name, gender, pid)
       when is_binary(name) and is_binary(player1_name) and is_pid(pid) and
              gender in @genders do
@@ -75,7 +76,7 @@ defmodule Islands.Game do
     update_in(game[player_id].guesses, &Guesses.add(&1, hit_or_miss, guess))
   end
 
-  @spec update_player(t, PlayerID.t(), String.t(), Player.gender(), pid) :: t
+  @spec update_player(t, PlayerID.t(), Player.name(), Player.gender(), pid) :: t
   def update_player(%Game{} = game, player_id, name, gender, pid)
       when player_id in @player_ids and is_binary(name) and is_pid(pid) and
              gender in @genders do
