@@ -4,7 +4,7 @@ defmodule Islands.Game.MixProject do
   def project do
     [
       app: :islands_game,
-      version: "0.1.20",
+      version: "0.1.21",
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
       name: "Islands Game",
@@ -27,7 +27,7 @@ defmodule Islands.Game.MixProject do
 
   defp package do
     [
-      files: ["lib", "mix.exs", "README*"],
+      files: ["lib", "mix.exs", "README*", "config/persist*.exs"],
       maintainers: ["Raymond Loranger"],
       licenses: ["MIT"],
       links: %{"GitHub" => source_url()}
@@ -37,7 +37,7 @@ defmodule Islands.Game.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger]
+      extra_applications: [:crypto, :logger]
     ]
   end
 
@@ -57,6 +57,7 @@ defmodule Islands.Game.MixProject do
       {:jason, "~> 1.0"},
       {:mix_tasks,
        github: "RaymondLoranger/mix_tasks", only: :dev, runtime: false},
+      {:persist_config, "~> 0.4", runtime: false},
       {:poison, "~> 4.0"}
     ]
   end

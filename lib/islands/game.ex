@@ -10,6 +10,8 @@ defmodule Islands.Game do
 
   @behaviour Access
 
+  use PersistConfig
+
   alias __MODULE__
 
   alias Islands.{
@@ -23,8 +25,10 @@ defmodule Islands.Game do
     State
   }
 
+  @adjectives get_env(:haiku_adjectives)
   @genders [:f, :m]
   @hit_or_miss [:hit, :miss]
+  @nouns get_env(:haiku_nouns)
   @player_ids [:player1, :player2]
 
   @derive [Poison.Encoder]
@@ -109,6 +113,28 @@ defmodule Islands.Game do
   @spec update_response(t, Response.t()) :: t
   def update_response(%Game{} = game, response) when is_tuple(response),
     do: put_in(game.response, response)
+
+  @doc """
+  Generates a random name.
+  """
+  @spec random_name :: name
+  def random_name do
+    length = Enum.random(4..10)
+
+    :crypto.strong_rand_bytes(length)
+    |> Base.url_encode64()
+    # Starting at 0 with length "length"...
+    |> binary_part(0, length)
+  end
+
+  @doc """
+  Generates a unique, URL-friendly name such as "bold-frog-8249".
+  """
+  @spec haiku_name :: String.t()
+  def haiku_name do
+    [Enum.random(@adjectives), Enum.random(@nouns), :rand.uniform(9999)]
+    |> Enum.join("-")
+  end
 
   defimpl Poison.Encoder, for: Tuple do
     def encode(data, options) when is_tuple(data) do
