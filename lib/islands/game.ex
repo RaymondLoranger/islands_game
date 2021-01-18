@@ -56,7 +56,7 @@ defmodule Islands.Game do
   defdelegate get_and_update(game, key, fun), to: Map
   defdelegate pop(game, key), to: Map
 
-  @spec new(name, String.t(), Player.gender(), pid) :: t | {:error, atom}
+  @spec new(name, Player.name(), Player.gender(), pid) :: t | {:error, atom}
   def new(name, player1_name, gender, pid)
       when is_binary(name) and is_binary(player1_name) and is_pid(pid) and
              gender in @genders do
@@ -130,7 +130,7 @@ defmodule Islands.Game do
   @doc """
   Generates a unique, URL-friendly name such as "bold-frog-8249".
   """
-  @spec haiku_name :: String.t()
+  @spec haiku_name :: name
   def haiku_name do
     [Enum.random(@adjectives), Enum.random(@nouns), :rand.uniform(9999)]
     |> Enum.join("-")
