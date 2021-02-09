@@ -42,6 +42,13 @@ defmodule Islands.Game do
             state: State.new()
 
   @type name :: String.t()
+  @type overview :: %{
+          game_name: name,
+          player1_name: Player.name(),
+          player1_gender: Player.gender(),
+          player2_name: Player.name(),
+          player2_gender: Player.gender()
+        }
   @type t :: %Game{
           name: name,
           player1: Player.t(),
@@ -134,6 +141,17 @@ defmodule Islands.Game do
   def haiku_name do
     [Enum.random(@adjectives), Enum.random(@nouns), :rand.uniform(9999)]
     |> Enum.join("-")
+  end
+
+  @spec overview(t) :: overview
+  def overview(%Game{} = game) do
+    %{
+      game_name: game.name,
+      player1_name: game.player1.name,
+      player1_gender: game.player1.gender,
+      player2_name: game.player2.name,
+      player2_gender: game.player2.gender
+    }
   end
 
   defimpl Poison.Encoder, for: Tuple do
