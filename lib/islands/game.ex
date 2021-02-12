@@ -43,12 +43,11 @@ defmodule Islands.Game do
 
   @type name :: String.t()
   @type overview :: %{
-          game_name: name,
-          player1_name: Player.name(),
-          player1_gender: Player.gender(),
-          player2_name: Player.name(),
-          player2_gender: Player.gender()
+          name: name,
+          player1: overview_player,
+          player2: overview_player
         }
+  @type overview_player :: %{name: Player.name(), gender: Player.gender()}
   @type t :: %Game{
           name: name,
           player1: Player.t(),
@@ -146,11 +145,9 @@ defmodule Islands.Game do
   @spec overview(t) :: overview
   def overview(%Game{} = game) do
     %{
-      game_name: game.name,
-      player1_name: game.player1.name,
-      player1_gender: game.player1.gender,
-      player2_name: game.player2.name,
-      player2_gender: game.player2.gender
+      name: game.name,
+      player1: %{name: game.player1.name, gender: game.player1.gender},
+      player2: %{name: game.player2.name, gender: game.player2.gender}
     }
   end
 

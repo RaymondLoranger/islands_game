@@ -68,4 +68,17 @@ defmodule Islands.GameTest do
                {:error, :invalid_game_args}
     end
   end
+
+  describe "Game.overview/1" do
+    test "returns a game overview" do
+      me = self()
+      game = Game.new("Avatar", "Neytiri", :f, me)
+
+      assert Game.overview(game) == %{
+               name: "Avatar",
+               player1: %{name: "Neytiri", gender: :f},
+               player2: %{name: "?", gender: :f}
+             }
+    end
+  end
 end
