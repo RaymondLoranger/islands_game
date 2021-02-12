@@ -75,7 +75,7 @@ defmodule Islands.GameTest do
       game = Game.new("Avatar", "Neytiri", :f, me)
 
       assert Game.overview(game) == %{
-               name: "Avatar",
+               game_name: "Avatar",
                player1: %{name: "Neytiri", gender: :f},
                player2: %{name: "?", gender: :f}
              }
