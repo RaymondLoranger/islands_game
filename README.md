@@ -1,6 +1,6 @@
 # Islands Game
 
-Models a `game` in the _Game of Islands_.
+A game struct and functions for the _Game of Islands_.
 
 ## Installation
 

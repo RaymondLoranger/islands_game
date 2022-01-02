@@ -4,7 +4,7 @@ defmodule Islands.Game.MixProject do
   def project do
     [
       app: :islands_game,
-      version: "0.1.29",
+      version: "0.1.30",
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
       name: "Islands Game",
@@ -21,7 +21,7 @@ defmodule Islands.Game.MixProject do
 
   defp description do
     """
-    Models a game in the Game of Islands.
+    A game struct and functions for the Game of Islands.
     """
   end
 
@@ -56,7 +56,7 @@ defmodule Islands.Game.MixProject do
       {:islands_state, "~> 0.1"},
       {:jason, "~> 1.0"},
       {:persist_config, "~> 0.4", runtime: false},
-      {:poison, "~> 4.0"}
+      {:poison, "~> 5.0"}
     ]
   end
 end

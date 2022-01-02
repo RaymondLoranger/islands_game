@@ -63,7 +63,7 @@ defmodule Islands.GameTest do
              } = Game.new("Aveline", "Jordan", :m, me)
     end
 
-    test "returns {:error, ...} given invalid args" do
+    test "returns {:error, reason} given invalid args" do
       assert Game.new("Aveline", "Jordan", :m, :pid) ==
                {:error, :invalid_game_args}
     end
