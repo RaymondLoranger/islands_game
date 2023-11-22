@@ -35,7 +35,6 @@ defmodule Islands.Game do
   @nouns get_env(:haiku_nouns)
   @player_ids [:player1, :player2]
 
-  @derive [Poison.Encoder]
   @derive Jason.Encoder
   @enforce_keys [:name, :player1, :player2]
   defstruct name: nil,
@@ -208,13 +207,6 @@ defmodule Islands.Game do
   end
 
   ## Helpers
-
-  defimpl Poison.Encoder, for: Tuple do
-    @spec encode(tuple, Poison.Encoder.options()) :: iodata
-    def encode(data, options) when is_tuple(data) do
-      Tuple.to_list(data) |> Poison.Encoder.List.encode(options)
-    end
-  end
 
   defimpl Jason.Encoder, for: Tuple do
     @spec encode(tuple, Jason.Encode.opts()) :: iodata
