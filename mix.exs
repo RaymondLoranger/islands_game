@@ -4,7 +4,7 @@ defmodule Islands.Game.MixProject do
   def project do
     [
       app: :islands_game,
-      version: "0.1.43",
+      version: "0.1.44",
       elixir: "~> 1.11",
       start_permanent: Mix.env() == :prod,
       name: "Islands Game",
@@ -37,7 +37,7 @@ defmodule Islands.Game.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger]
+      extra_applications: [:logger, :crypto]
     ]
   end
 
