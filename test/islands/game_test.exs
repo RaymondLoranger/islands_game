@@ -9,8 +9,8 @@ defmodule Islands.GameTest do
     this = self()
     eden = Game.new("Eden", "Adam", :m, this)
 
-    jason =
-      ~s<{"name":"Eden","request":[],"state":{"game_state":"initialized","player1_state":"islands_not_set","player2_state":"islands_not_set"},"response":[],"player1":{"name":"Adam","gender":"m","board":{"islands":{},"misses":[]},"guesses":{"hits":[],"misses":[]}},"player2":{"name":"?","gender":"f","board":{"islands":{},"misses":[]},"guesses":{"hits":[],"misses":[]}}}>
+    encoded =
+      ~s<{"name":"Eden","player1":{"name":"Adam","gender":"m","board":{"islands":{},"misses":[]},"guesses":{"hits":[],"misses":[]}},"player2":{"name":"?","gender":"f","board":{"islands":{},"misses":[]},"guesses":{"hits":[],"misses":[]}},"request":[],"response":[],"state":{"game_state":"initialized","player1_state":"islands_not_set","player2_state":"islands_not_set"}}>
 
     decoded = %{
       "name" => "Eden",
@@ -35,13 +35,13 @@ defmodule Islands.GameTest do
       }
     }
 
-    %{json: %{jason: jason, decoded: decoded}, game: eden}
+    %{json: %{encoded: encoded, decoded: decoded}, game: eden}
   end
 
   describe "A game struct" do
-    test "can be encoded by Jason", %{game: eden, json: json} do
-      assert Jason.encode!(eden) == json.jason
-      assert Jason.decode!(json.jason) == json.decoded
+    test "can be encoded by JSON", %{game: eden, json: json} do
+      assert JSON.encode!(eden) == json.encoded
+      assert JSON.decode!(json.encoded) == json.decoded
     end
   end
 

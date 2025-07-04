@@ -6,8 +6,8 @@ defmodule Islands.Game do
   A game struct and functions for the _Game of Islands_.
 
   The game struct contains the fields `name`, `player1`, `player2`, `request`,
-  `response` and `state` representing the characteristics of a game in the
-  _Game of Islands_.
+  `response` and `state` representing the properties of a game in the _Game of
+  Islands_.
 
   ##### Based on the book [Functional Web Development](https://pragprog.com/titles/lhelph/functional-web-development-with-elixir-otp-and-phoenix/) by Lance Halvorsen.
   """
@@ -35,7 +35,7 @@ defmodule Islands.Game do
   @nouns get_env(:haiku_nouns)
   @player_ids [:player1, :player2]
 
-  @derive Jason.Encoder
+  @derive JSON.Encoder
   @enforce_keys [:name, :player1, :player2]
   defstruct name: nil,
             player1: nil,
@@ -84,7 +84,7 @@ defmodule Islands.Game do
 
       iex> alias Islands.Game
       iex> {player_name, gender, pid} = {"James", :m, self()}
-      iex> Game.new('Sky Fall', player_name, gender, pid)
+      iex> Game.new(~c'Sky Fall', player_name, gender, pid)
       {:error, :invalid_game_args}
   """
   @spec new(name, Player.name(), Player.gender(), pid) :: t | {:error, atom}
@@ -208,10 +208,13 @@ defmodule Islands.Game do
 
   ## Helpers
 
-  defimpl Jason.Encoder, for: Tuple do
-    @spec encode(tuple, Jason.Encode.opts()) :: iodata
-    def encode(data, opts) when is_tuple(data) do
-      Tuple.to_list(data) |> Jason.Encode.list(opts)
+  # {1, 2, 3} -> [91, "1", 44, "2", 44, "3", 93]
+  # IO.iodata_to_binary ==> "[1,2,3]"
+  defimpl JSON.Encoder, for: Tuple do
+    @spec encode(tuple, JSON.encoder()) :: iodata
+    def encode(tuple, encoder)
+        when is_tuple(tuple) and is_function(encoder, 2) do
+      Tuple.to_list(tuple) |> JSON.Encoder.encode(encoder)
     end
   end
 end
