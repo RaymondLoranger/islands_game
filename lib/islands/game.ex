@@ -5,9 +5,16 @@ defmodule Islands.Game do
   @moduledoc """
   A game struct and functions for the _Game of Islands_.
 
-  The game struct contains the fields `name`, `player1`, `player2`, `request`,
-  `response` and `state` representing the properties of a game in the _Game of
-  Islands_.
+  The game struct contains the fields:
+
+    - `name`
+    - `player1`
+    - `player2`
+    - `request`
+    - `response`
+    - `state`
+
+  representing the properties of a game in the _Game of Islands_.
 
   ##### Based on the book [Functional Web Development](https://pragprog.com/titles/lhelph/functional-web-development-with-elixir-otp-and-phoenix/) by Lance Halvorsen.
   """
