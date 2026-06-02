@@ -131,7 +131,8 @@ defmodule Islands.Game do
   def update_player(%Game{} = game, player_id, name, gender, pid)
       when player_id in @player_ids and is_binary(name) and is_pid(pid) and
              gender in @genders do
-    player = %Player{game[player_id] | name: name, gender: gender, pid: pid}
+    player = %Player{} = game[player_id]
+    player = %Player{player | name: name, gender: gender, pid: pid}
     put_in(game[player_id], player)
   end
 
@@ -216,6 +217,7 @@ defmodule Islands.Game do
   ## Helpers
 
   # {1, 2, 3} -> [91, "1", 44, "2", 44, "3", 93]
+  # where 91 is ?[, 44 is ?, and 93 is ?]
   # IO.iodata_to_binary ==> "[1,2,3]"
   defimpl JSON.Encoder, for: Tuple do
     @spec encode(tuple, JSON.encoder()) :: iodata
