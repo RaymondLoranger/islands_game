@@ -71,9 +71,11 @@ defmodule Islands.Game do
           state: State.t()
         }
 
-  # Access behaviour
+  @impl Access
   defdelegate fetch(game, key), to: Map
+  @impl Access
   defdelegate get_and_update(game, key, fun), to: Map
+  @impl Access
   defdelegate pop(game, key), to: Map
 
   @doc """
